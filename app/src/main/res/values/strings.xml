@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FortniteLeaderbords</string>
+    <string name="continuebutton_text">Continue</string>
+    <string name="usernametextfield_text">Username</string>
 </resources>
