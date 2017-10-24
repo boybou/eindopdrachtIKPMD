@@ -5,8 +5,9 @@ package com.example.boy.fortniteleaderbords.Database;
  */
 
 public class DatabaseInfo {
-   public static final String currentUserTableName = "currentUser";
-    public class currentUserTableCollumnNames{
+   public static final String userTableName = "user";
+    public static final String currentUserTableName = "currentUser";
+    public class userTableCollumnNames {
         public static final String userName = "userName";
         public static final String soloGames= "soloGames";
         public static final String duoGames= "duoGames";
@@ -17,6 +18,9 @@ public class DatabaseInfo {
         public static final String soloWins= "soloWins";
         public static final String duoWins= "duoWins";
         public static final String sqaudWins= "sqaudWins";
+    }
+    public class currentUserTableCollumnNames{
+        public static final String userName = "currentUserUserName";
     }
 
 }

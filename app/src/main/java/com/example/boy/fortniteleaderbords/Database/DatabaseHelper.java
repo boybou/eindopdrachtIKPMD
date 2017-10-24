@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.BaseColumns;
 
 /**
  * Created by Boy on 10/24/2017.
@@ -30,25 +29,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //    public void newTable()
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE " + DatabaseInfo.currentUserTableName +" ("
-                + DatabaseInfo.currentUserTableCollumnNames.userName + " TEXT,"
-                + DatabaseInfo.currentUserTableCollumnNames.soloGames + " TEXT,"
-                + DatabaseInfo.currentUserTableCollumnNames.soloKills + " TEXT,"
-                + DatabaseInfo.currentUserTableCollumnNames.soloWins + " TEXT,"
-                + DatabaseInfo.currentUserTableCollumnNames.duoGames + " TEXT,"
-                + DatabaseInfo.currentUserTableCollumnNames.duoKills + " TEXT,"
-                + DatabaseInfo.currentUserTableCollumnNames.duoWins + " TEXT,"
-                + DatabaseInfo.currentUserTableCollumnNames.sqaudGames + " TEXT,"
-                + DatabaseInfo.currentUserTableCollumnNames.sqaudKills + " TEXT,"
-                + DatabaseInfo.currentUserTableCollumnNames.sqaudWins + " TEXT);");
+        sqLiteDatabase.execSQL("CREATE TABLE " + DatabaseInfo.userTableName +" ("
+                + DatabaseInfo.userTableCollumnNames.userName + " TEXT,"
+                + DatabaseInfo.userTableCollumnNames.soloGames + " TEXT,"
+                + DatabaseInfo.userTableCollumnNames.soloKills + " TEXT,"
+                + DatabaseInfo.userTableCollumnNames.soloWins + " TEXT,"
+                + DatabaseInfo.userTableCollumnNames.duoGames + " TEXT,"
+                + DatabaseInfo.userTableCollumnNames.duoKills + " TEXT,"
+                + DatabaseInfo.userTableCollumnNames.duoWins + " TEXT,"
+                + DatabaseInfo.userTableCollumnNames.sqaudGames + " TEXT,"
+                + DatabaseInfo.userTableCollumnNames.sqaudKills + " TEXT,"
+                + DatabaseInfo.userTableCollumnNames.sqaudWins + " TEXT); ");
+        sqLiteDatabase.execSQL("CREATE TABLE " + DatabaseInfo.currentUserTableName +" (" + DatabaseInfo.currentUserTableCollumnNames.userName + " TEXT);");
 
     }
 
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + DatabaseInfo.userTableName);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + DatabaseInfo.currentUserTableName);
         onCreate(sqLiteDatabase);
+    }
+    public void onChangeUser(SQLiteDatabase sqLiteDatabase){
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + DatabaseInfo.currentUserTableName);
+        sqLiteDatabase.execSQL("CREATE TABLE " + DatabaseInfo.currentUserTableName +" (" + DatabaseInfo.currentUserTableCollumnNames.userName + " TEXT);");
     }
 
     public DatabaseHelper(Context context ,String name,SQLiteDatabase.CursorFactory factory,int version){
