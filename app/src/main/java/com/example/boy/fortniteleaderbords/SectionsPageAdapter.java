@@ -20,6 +20,10 @@ public class SectionsPageAdapter extends FragmentPagerAdapter {
         mFragmentList.add(fragment);
         mFragmentTitleList.add(title);
     }
+    public void clearAdapter(){
+        mFragmentTitleList.clear();
+        mFragmentTitleList.clear();
+    }
     public SectionsPageAdapter(FragmentManager fm) {
         super(fm);
     }
@@ -32,6 +36,11 @@ public class SectionsPageAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         return mFragmentList.get(position);
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
     }
 
     @Override

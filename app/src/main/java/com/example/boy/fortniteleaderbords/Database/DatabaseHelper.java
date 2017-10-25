@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.boy.fortniteleaderbords.Models.CurrentUser;
+import com.example.boy.fortniteleaderbords.Models.User;
+
 /**
  * Created by Boy on 10/24/2017.
  */
@@ -64,5 +67,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public Cursor query(String table, String[] columns, String selection, String[] selectargs, String groupBy, String having, String orderBy){
         return msqldb.query(table,columns,selection,selectargs,groupBy,having,orderBy);
+    }
+    public void statUpdate(String userName){
+        msqldb.execSQL("DELETE FROM "+DatabaseInfo.userTableName+" WHERE "+DatabaseInfo.userTableCollumnNames.userName+" = '"+userName+"'");
+
+    }
+    public User returnUser(String userName){
+       Cursor rs = msqldb.query(DatabaseInfo.userTableName,new String[]{"*"},DatabaseInfo.userTableCollumnNames.userName+"= '" + userName+"'",null,null,null,null);
+        rs.moveToFirst();
+        return new User(userName,rs.getInt(rs.getColumnIndex(DatabaseInfo.userTableCollumnNames.soloKills))
+                ,rs.getInt(rs.getColumnIndex(DatabaseInfo.userTableCollumnNames.soloGames))
+                ,rs.getInt(rs.getColumnIndex(DatabaseInfo.userTableCollumnNames.soloWins))
+                ,rs.getInt(rs.getColumnIndex(DatabaseInfo.userTableCollumnNames.duoKills))
+        ,rs.getInt(rs.getColumnIndex(DatabaseInfo.userTableCollumnNames.duoGames))
+        ,rs.getInt(rs.getColumnIndex(DatabaseInfo.userTableCollumnNames.duoWins))
+        ,rs.getInt(rs.getColumnIndex(DatabaseInfo.userTableCollumnNames.sqaudKills))
+        ,rs.getInt(rs.getColumnIndex(DatabaseInfo.userTableCollumnNames.sqaudGames))
+        ,rs.getInt(rs.getColumnIndex(DatabaseInfo.userTableCollumnNames.sqaudWins)));
     }
 }

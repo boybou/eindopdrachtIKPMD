@@ -113,13 +113,15 @@ public class LoginActivity extends AppCompatActivity {
             rs.moveToNext();
             button.setText(rs.getString(rs.getColumnIndex(DatabaseInfo.userTableCollumnNames.userName)));
             linearLayout.addView(button,WRAP_CONTENT);
+            final String name = rs.getString(rs.getColumnIndex(DatabaseInfo.userTableCollumnNames.userName));
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     ContentValues cv2 = new ContentValues();
                     cv2.put(DatabaseInfo.currentUserTableCollumnNames.userName,rs.getString(rs.getColumnIndex(DatabaseInfo.userTableCollumnNames.userName)));
                     dbHelper.insert(DatabaseInfo.currentUserTableName,null,cv2);
-                    CurrentUser.setCurrentuserName(rs.getString(rs.getColumnIndex(DatabaseInfo.userTableCollumnNames.userName)));
+                    CurrentUser.setCurrentuserName(name);
+                    Toast.makeText(LoginActivity.this,CurrentUser.getCurrentuserName(),Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(LoginActivity.this,MainActivity.class));
                 }
             });
