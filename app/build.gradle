@@ -18,6 +18,12 @@ android {
         }
     }
 }
+repositories {
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/shapshots/" }
+    maven { url "https://jitpack.io" }
+}
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -29,5 +35,6 @@ dependencies {
     compile 'com.android.support:support-core-utils:26.1.0'
     compile 'com.android.support:design:26.1.0'
     compile 'com.android.support:support-v4:26.+'
+    compile 'com.github.PhilJay:MPAndroidChart:v2.1.5'
     testCompile 'junit:junit:4.12'
 }

@@ -2,6 +2,7 @@ package com.example.boy.fortniteleaderbords.Fragments;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.net.Uri;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.boy.fortniteleaderbords.Database.DatabaseHelper;
 import com.example.boy.fortniteleaderbords.Database.DatabaseInfo;
+import com.example.boy.fortniteleaderbords.MainActivity;
 import com.example.boy.fortniteleaderbords.Models.CurrentUser;
 import com.example.boy.fortniteleaderbords.Models.User;
 import com.example.boy.fortniteleaderbords.R;
@@ -96,6 +98,7 @@ public class UpdateStatsFragment extends Fragment {
                             new Integer(parseInt(duoKills.getText().toString())),new Integer(parseInt(duoGames.getText().toString())),
                             new Integer(parseInt(duoWins.getText().toString())),new Integer(parseInt(sqaudKills.getText().toString())),
                             new Integer(parseInt(sqaudGames.getText().toString())),new Integer(parseInt(sqaudWins.getText().toString()))));
+                    startActivity(new Intent(container.getContext(),MainActivity.class));
                 }catch (java.lang.NumberFormatException e){
                     Toast.makeText(container.getContext(),"Make sure you fill in all the number fields and make sure there are no numeric values over 10 million", Toast.LENGTH_LONG).show();
                 }
