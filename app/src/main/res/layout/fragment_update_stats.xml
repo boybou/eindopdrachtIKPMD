@@ -93,30 +93,30 @@
                     android:layout_weight="1" />
 
                 <EditText
-                    android:id="@+id/sqaudKills"
+                    android:id="@+id/squadKills"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="@string/sqaudKills"
+                    android:hint="@string/squadKills"
                     android:inputType="number" />
 
                 <EditText
-                    android:id="@+id/sqaudGames"
+                    android:id="@+id/squadGames"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="@string/sqaudGames"
+                    android:hint="@string/squadGames"
                     android:inputType="number" />
 
                 <EditText
-                    android:id="@+id/sqaudWins"
+                    android:id="@+id/squadWins"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="@string/sqaudWins"
+                    android:hint="@string/squadWins"
                     android:inputType="number" />
 
                 <Button

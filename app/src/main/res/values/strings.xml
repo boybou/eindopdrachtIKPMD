@@ -10,10 +10,11 @@
     <string name="duoKills">Duo Kills</string>
     <string name="duoGames">Duo Games</string>
     <string name="duoWins">Duo Wins</string>
-    <string name="sqaudKills">Sqaud Kills</string>
-    <string name="sqaudGames">Sqaud Games</string>
-    <string name="sqaudWins">Sqaud Wins</string>
+    <string name="squadKills">squad Kills</string>
+    <string name="squadGames">squad Games</string>
+    <string name="squadWins">squad Wins</string>
     <string name="updateStats">Update Stats</string>
+    <string name="UploadStats">Upload Stats</string>
 
 
 

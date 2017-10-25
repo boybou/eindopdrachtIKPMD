@@ -1,0 +1,12 @@
+CREATE TABLE users (
+    userName TEXT,
+    soloKills INTEGER,
+    soloGames INTEGER,
+    soloWins INTEGER,
+    duoKills INTEGER,
+    duoGames INTEGER,
+    duoWins INTEGER,
+    squadKills INTEGER,
+    squadGames INTEGER,
+    squadWins INTEGER
+);

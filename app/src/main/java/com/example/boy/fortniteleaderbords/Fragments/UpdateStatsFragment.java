@@ -47,9 +47,9 @@ public class UpdateStatsFragment extends Fragment {
         final EditText duoKills = (EditText) view.findViewById(R.id.duoKills);
         final EditText duoGames = (EditText) view.findViewById(R.id.duoGames);
         final EditText duoWins = (EditText) view.findViewById(R.id.duoWins);
-        final EditText sqaudKills = (EditText) view.findViewById(R.id.sqaudKills);
-        final EditText sqaudGames = (EditText) view.findViewById(R.id.sqaudGames);
-        final EditText sqaudWins = (EditText) view.findViewById(R.id.sqaudWins);
+        final EditText squadKills = (EditText) view.findViewById(R.id.squadKills);
+        final EditText squadGames = (EditText) view.findViewById(R.id.squadGames);
+        final EditText squadWins = (EditText) view.findViewById(R.id.squadWins);
         Button updateStatsButton = (Button)view.findViewById(R.id.updateStatsButton);
         Cursor rs = dbHelper.query(DatabaseInfo.userTableName,new String[]{"*"},DatabaseInfo.userTableCollumnNames.userName+"= '" +CurrentUser.getCurrentuserName()+"'",null,null,null,null);
 
@@ -73,14 +73,14 @@ public class UpdateStatsFragment extends Fragment {
             if(user.getDuoWins()!=0){
                 duoWins.setText(""+user.getDuoWins());
             }
-            if(user.getSqaudKills()!=0){
-                sqaudKills.setText(""+user.getSqaudKills());
+            if(user.getsquadKills()!=0){
+                squadKills.setText(""+user.getsquadKills());
             }
-            if(user.getSqaudGames()!=0){
-                sqaudGames.setText(""+user.getSqaudGames());
+            if(user.getsquadGames()!=0){
+                squadGames.setText(""+user.getsquadGames());
             }
-            if(user.getSqaudWins()!=0){
-                sqaudWins.setText(""+user.getSqaudWins());
+            if(user.getsquadWins()!=0){
+                squadWins.setText(""+user.getsquadWins());
             }
 
 
@@ -96,8 +96,9 @@ public class UpdateStatsFragment extends Fragment {
                     insertIntoDatabase(container.getContext(),new User(CurrentUser.getCurrentuserName(),new Integer(parseInt(soloKills.getText().toString())),
                             new Integer(parseInt(soloGames.getText().toString())),new Integer(parseInt(soloWins.getText().toString())),
                             new Integer(parseInt(duoKills.getText().toString())),new Integer(parseInt(duoGames.getText().toString())),
-                            new Integer(parseInt(duoWins.getText().toString())),new Integer(parseInt(sqaudKills.getText().toString())),
-                            new Integer(parseInt(sqaudGames.getText().toString())),new Integer(parseInt(sqaudWins.getText().toString()))));
+                            new Integer(parseInt(duoWins.getText().toString())),new Integer(parseInt(squadKills.getText().toString())),
+                            new Integer(parseInt(squadGames.getText().toString())),new Integer(parseInt(squadWins.getText().toString()))));
+                    CurrentUser.setUpdated(true);
                     startActivity(new Intent(container.getContext(),MainActivity.class));
                 }catch (java.lang.NumberFormatException e){
                     Toast.makeText(container.getContext(),"Make sure you fill in all the number fields and make sure there are no numeric values over 10 million", Toast.LENGTH_LONG).show();
@@ -123,9 +124,9 @@ public class UpdateStatsFragment extends Fragment {
         cv.put(DatabaseInfo.userTableCollumnNames.duoKills,user.getDuoKills());
         cv.put(DatabaseInfo.userTableCollumnNames.duoGames,user.getDuoGames());
         cv.put(DatabaseInfo.userTableCollumnNames.duoWins,user.getDuoWins());
-        cv.put(DatabaseInfo.userTableCollumnNames.sqaudKills,user.getSqaudKills());
-        cv.put(DatabaseInfo.userTableCollumnNames.sqaudGames,user.getSqaudGames());
-        cv.put(DatabaseInfo.userTableCollumnNames.sqaudWins,user.getSqaudWins());
+        cv.put(DatabaseInfo.userTableCollumnNames.squadKills,user.getsquadKills());
+        cv.put(DatabaseInfo.userTableCollumnNames.squadGames,user.getsquadGames());
+        cv.put(DatabaseInfo.userTableCollumnNames.squadWins,user.getsquadWins());
         dbHelper.insert(DatabaseInfo.userTableName,null,cv);
         Cursor rs2 = dbHelper.query(DatabaseInfo.userTableName,new String[]{"*"},DatabaseInfo.userTableCollumnNames.userName+"= '" +user.getUserName()+"'",null,null,null,null);
         DatabaseUtils.dumpCursor(rs2);

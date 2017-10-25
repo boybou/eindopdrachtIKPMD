@@ -12,14 +12,14 @@ public class User {
     private int duoKills;
     private int duoGames;
     private int duoWins;
-    private int sqaudKills;
-    private int sqaudGames;
-    private int sqaudWins;
+    private int squadKills;
+    private int squadGames;
+    private int squadWins;
 
     public User(String userName){
         this.userName =userName;
     }
-    public User(String userName,int soloKills,int soloGames,int soloWins,int duoKills,int duoGames,int duoWins,int sqaudKills,int sqaudGames,int sqaudWins){
+    public User(String userName,int soloKills,int soloGames,int soloWins,int duoKills,int duoGames,int duoWins,int squadKills,int squadGames,int squadWins){
         this.userName=userName;
         this.soloKills=soloKills;
         this.soloGames=soloGames;
@@ -27,9 +27,9 @@ public class User {
         this.duoKills=duoKills;
         this.duoGames=duoGames;
         this.duoWins=duoWins;
-        this.sqaudGames=sqaudGames;
-        this.sqaudKills=sqaudKills;
-        this.sqaudWins=sqaudWins;
+        this.squadGames=squadGames;
+        this.squadKills=squadKills;
+        this.squadWins=squadWins;
     }
 
     public String getUserName() {
@@ -88,27 +88,27 @@ public class User {
         this.duoWins = duoWins;
     }
 
-    public int getSqaudKills() {
-        return sqaudKills;
+    public int getsquadKills() {
+        return squadKills;
     }
 
-    public void setSqaudKills(int sqaudKills) {
-        this.sqaudKills = sqaudKills;
+    public void setsquadKills(int squadKills) {
+        this.squadKills = squadKills;
     }
 
-    public int getSqaudGames() {
-        return sqaudGames;
+    public int getsquadGames() {
+        return squadGames;
     }
 
-    public void setSqaudGames(int sqaudGames) {
-        this.sqaudGames = sqaudGames;
+    public void setsquadGames(int squadGames) {
+        this.squadGames = squadGames;
     }
 
-    public int getSqaudWins() {
-        return sqaudWins;
+    public int getsquadWins() {
+        return squadWins;
     }
 
-    public void setSqaudWins(int sqaudWins) {
-        this.sqaudWins = sqaudWins;
+    public void setsquadWins(int squadWins) {
+        this.squadWins = squadWins;
     }
 }

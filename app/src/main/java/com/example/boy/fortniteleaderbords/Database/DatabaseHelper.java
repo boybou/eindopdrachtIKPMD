@@ -34,15 +34,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + DatabaseInfo.userTableName +" ("
                 + DatabaseInfo.userTableCollumnNames.userName + " TEXT,"
-                + DatabaseInfo.userTableCollumnNames.soloGames + " TEXT,"
-                + DatabaseInfo.userTableCollumnNames.soloKills + " TEXT,"
-                + DatabaseInfo.userTableCollumnNames.soloWins + " TEXT,"
-                + DatabaseInfo.userTableCollumnNames.duoGames + " TEXT,"
-                + DatabaseInfo.userTableCollumnNames.duoKills + " TEXT,"
-                + DatabaseInfo.userTableCollumnNames.duoWins + " TEXT,"
-                + DatabaseInfo.userTableCollumnNames.sqaudGames + " TEXT,"
-                + DatabaseInfo.userTableCollumnNames.sqaudKills + " TEXT,"
-                + DatabaseInfo.userTableCollumnNames.sqaudWins + " TEXT); ");
+                + DatabaseInfo.userTableCollumnNames.soloGames + " INTEGER,"
+                + DatabaseInfo.userTableCollumnNames.soloKills + " INTEGER,"
+                + DatabaseInfo.userTableCollumnNames.soloWins + " INTEGER,"
+                + DatabaseInfo.userTableCollumnNames.duoGames + " INTEGER,"
+                + DatabaseInfo.userTableCollumnNames.duoKills + " INTEGER,"
+                + DatabaseInfo.userTableCollumnNames.duoWins + " INTEGER,"
+                + DatabaseInfo.userTableCollumnNames.squadGames + " INTEGER,"
+                + DatabaseInfo.userTableCollumnNames.squadKills + " INTEGER,"
+                + DatabaseInfo.userTableCollumnNames.squadWins + " INTEGER); ");
         sqLiteDatabase.execSQL("CREATE TABLE " + DatabaseInfo.currentUserTableName +" (" + DatabaseInfo.currentUserTableCollumnNames.userName + " TEXT);");
 
     }
@@ -81,8 +81,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ,rs.getInt(rs.getColumnIndex(DatabaseInfo.userTableCollumnNames.duoKills))
         ,rs.getInt(rs.getColumnIndex(DatabaseInfo.userTableCollumnNames.duoGames))
         ,rs.getInt(rs.getColumnIndex(DatabaseInfo.userTableCollumnNames.duoWins))
-        ,rs.getInt(rs.getColumnIndex(DatabaseInfo.userTableCollumnNames.sqaudKills))
-        ,rs.getInt(rs.getColumnIndex(DatabaseInfo.userTableCollumnNames.sqaudGames))
-        ,rs.getInt(rs.getColumnIndex(DatabaseInfo.userTableCollumnNames.sqaudWins)));
+        ,rs.getInt(rs.getColumnIndex(DatabaseInfo.userTableCollumnNames.squadKills))
+        ,rs.getInt(rs.getColumnIndex(DatabaseInfo.userTableCollumnNames.squadGames))
+        ,rs.getInt(rs.getColumnIndex(DatabaseInfo.userTableCollumnNames.squadWins)));
     }
 }
