@@ -8,6 +8,18 @@
     android:id="@+id/Clayout">
 
     <Button
+        android:id="@+id/addUserRecentUserButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:text="@string/adduser"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.889" />
+
+    <Button
         android:id="@+id/continueButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,7 +28,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.762" />
+        app:layout_constraintVertical_bias="0.682" />
 
     <EditText
         android:id="@+id/usernameEditText"
@@ -25,37 +37,25 @@
         android:ems="10"
         android:hint="@string/usernametextfield_text"
         android:inputType="textPersonName"
-        android:selectAllOnFocus="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="222dp"
+        android:layout_height="183dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.596" />
-
-    <TextView
-        android:id="@+id/recentuserstf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/recentusers_text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.226" />
-
-    <ScrollView
-        android:id="@+id/recentUserssv"
-        android:layout_width="188dp"
-        android:layout_height="120dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.36">
+        app:layout_constraintVertical_bias="0.385"
+        tools:layout_editor_absoluteX="62dp">
 
         <LinearLayout
+            android:id="@+id/recentUserssv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />

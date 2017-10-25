@@ -3,4 +3,12 @@
     <string name="continuebutton_text">Continue</string>
     <string name="usernametextfield_text">Username</string>
     <string name="recentusers_text">Recent users</string>
+    <string name="adduser">Add User</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="changeUserOption">Change User</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
