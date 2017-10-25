@@ -4,6 +4,18 @@
     <string name="usernametextfield_text">Username</string>
     <string name="recentusers_text">Recent users</string>
     <string name="adduser">Add User</string>
+    <string name="soloKills">Solo Kills</string>
+    <string name="soloGames">Solo Games</string>
+    <string name="soloWins">Solo Wins</string>
+    <string name="duoKills">Duo Kills</string>
+    <string name="duoGames">Duo Games</string>
+    <string name="duoWins">Duo Wins</string>
+    <string name="sqaudKills">Sqaud Kills</string>
+    <string name="sqaudGames">Sqaud Games</string>
+    <string name="sqaudWins">Sqaud Wins</string>
+    <string name="updateStats">Update Stats</string>
+
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

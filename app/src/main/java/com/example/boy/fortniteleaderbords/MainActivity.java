@@ -49,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
     }
     private void setupViewPager(ViewPager viewPager){
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new UpdateStatsFragment(),"EnterStats");
+        adapter.addFragment(new UpdateStatsFragment(),"Update Stats");
+        adapter.addFragment(new StatBreakdownFragment(),"Stat Breakdown");
         adapter.addFragment(new LeaderbordsFragment(),"Leaderbords");
-        adapter.addFragment(new StatBreakdownFragment(),"StatBreakdown");
         viewPager.setAdapter(adapter);
     }
 
