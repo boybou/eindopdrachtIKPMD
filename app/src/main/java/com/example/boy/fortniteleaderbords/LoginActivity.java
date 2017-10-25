@@ -48,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText userNameEditText = (EditText) findViewById(R.id.usernameEditText);
         final boolean[] clicked = {false};
         final LinearLayout linearLayout = (LinearLayout) findViewById(R.id.recentUserssv);
+        final ScrollView recentUserScrolv = (ScrollView)findViewById(R.id.recentUserscrolv);
         recentUsersBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,12 +58,15 @@ public class LoginActivity extends AppCompatActivity {
                     continueButton.setVisibility(View.VISIBLE);
                     recentUsersBut.setText("Recent Users");
                     linearLayout.removeAllViews();
+                    recentUserScrolv.setVisibility(View.INVISIBLE);
+
                     clicked[0] =false;
                 }else if(!clicked[0]) {
 
                     userNameEditText.setVisibility(View.INVISIBLE);
                     continueButton.setVisibility(View.INVISIBLE);
                     drawRecentUsers(linearLayout, dbHelper);
+                    recentUserScrolv.setVisibility(View.VISIBLE);
                     recentUsersBut.setText("Add User");
                     clicked[0] =true;
                 }
