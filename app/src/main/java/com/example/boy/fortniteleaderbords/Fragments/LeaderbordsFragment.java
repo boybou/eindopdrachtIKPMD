@@ -70,13 +70,15 @@ public class LeaderbordsFragment extends Fragment {
 
             }
         });
-        getUsers();
 
+
+        getUsers();
 
 
         refreshbut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
 
 
                     mAdapter = new LeaderbordsListAdapter(container.getContext(), 0, CurrentUser.getList());

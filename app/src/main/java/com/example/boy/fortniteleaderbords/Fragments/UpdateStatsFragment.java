@@ -18,6 +18,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.boy.fortniteleaderbords.Database.DatabaseHelper;
 import com.example.boy.fortniteleaderbords.Database.DatabaseInfo;
 import com.example.boy.fortniteleaderbords.MainActivity;
@@ -25,11 +31,21 @@ import com.example.boy.fortniteleaderbords.Models.CurrentUser;
 import com.example.boy.fortniteleaderbords.Models.User;
 import com.example.boy.fortniteleaderbords.R;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static java.lang.Integer.parseInt;
 
 
 public class UpdateStatsFragment extends Fragment {
     private static final String TAG = "1";
+    private String insertUrl = "https://boybou.nl/insert.php";
+    private String deleteUrl = "https://boybou.nl/delete.php";
+    private boolean localUpdateSucces;
+    private  boolean serverUpdateSucces;
+
+    private RequestQueue requestQueue0;
+    private RequestQueue requestQueue1;
 
 
 
@@ -37,8 +53,20 @@ public class UpdateStatsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
-        DatabaseHelper dbHelper = DatabaseHelper.getHelper(container.getContext());
+        final DatabaseHelper dbHelper = DatabaseHelper.getHelper(container.getContext());
 
+        if(localUpdateSucces){
+            if(serverUpdateSucces){
+                Toast.makeText(getContext(),"Update Successful",Toast.LENGTH_SHORT).show();
+                localUpdateSucces = false;
+                serverUpdateSucces = false;
+            }else {
+                localUpdateSucces = false;
+                Toast.makeText(getContext(),"No internet connection, saving stats locally",Toast.LENGTH_SHORT).show();
+            }
+        }
+        requestQueue0 = Volley.newRequestQueue(container.getContext());
+        requestQueue1 = Volley.newRequestQueue(container.getContext());
 
         View view = inflater.inflate(R.layout.fragment_update_stats,container,false);
         final EditText soloKills = (EditText) view.findViewById(R.id.soloKills);
@@ -102,7 +130,10 @@ public class UpdateStatsFragment extends Fragment {
                                 new Integer(parseInt(duoWins.getText().toString())), new Integer(parseInt(squadKills.getText().toString())),
                                 new Integer(parseInt(squadGames.getText().toString())), new Integer(parseInt(squadWins.getText().toString()))));
                         CurrentUser.setUpdated(true);
-                        startActivity(new Intent(container.getContext(), MainActivity.class));
+                        localUpdateSucces = true;
+                        uploadStats(dbHelper.returnUser(CurrentUser.getCurrentuserName()));
+                        startActivity(new Intent(getContext(),MainActivity.class));
+
                     }else{
                     Toast.makeText(container.getContext(),"You cant win more games than you have play",Toast.LENGTH_LONG).show();
                 }
@@ -117,6 +148,63 @@ public class UpdateStatsFragment extends Fragment {
 
         return view;
     }
+    public void uploadStats(final User user) {
+
+        deleteUser(user.getUserName());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, insertUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                serverUpdateSucces = true;
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                serverUpdateSucces = false;
+                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("userName", user.getUserName());
+                params.put("soloKills", new String(Integer.toString(user.getSoloKills())));
+                params.put("soloGames", new String(Integer.toString(user.getSoloGames())));
+                params.put("soloWins", new String(Integer.toString(user.getSoloWins())));
+                params.put("duoKills", new String(Integer.toString(user.getDuoKills())));
+                params.put("duoGames", new String(Integer.toString(user.getDuoGames())));
+                params.put("duoWins", new String(Integer.toString(user.getDuoWins())));
+                params.put("squadKills", new String(Integer.toString(user.getsquadKills())));
+                params.put("squadGames", new String(Integer.toString(user.getsquadGames())));
+                params.put("squadWins", new String(Integer.toString(user.getsquadWins())));
+                return params;
+
+            }
+        };
+
+        requestQueue0.add(stringRequest);
+    }
+    public void deleteUser(final String userName){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, deleteUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String,String> getParams()
+            {
+                Map<String,String> params = new HashMap<String,String>();
+                params.put("userName",userName);
+                return params;
+            }
+        };requestQueue1.add(stringRequest);
+    }
+
 
     protected void insertIntoDatabase(Context context, User user){
         DatabaseHelper dbHelper = DatabaseHelper.getHelper(context);
@@ -138,7 +226,7 @@ public class UpdateStatsFragment extends Fragment {
         dbHelper.insert(DatabaseInfo.userTableName,null,cv);
         Cursor rs2 = dbHelper.query(DatabaseInfo.userTableName,new String[]{"*"},DatabaseInfo.userTableCollumnNames.userName+"= '" +user.getUserName()+"'",null,null,null,null);
         DatabaseUtils.dumpCursor(rs2);
-        Toast.makeText(context,"Update Successful",Toast.LENGTH_SHORT).show();
+
 
 
 

@@ -52,11 +52,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String insertUrl = "https://boybou.nl/insert.php";
-    private String deleteUrl = "https://boybou.nl/delete.php";
 
-    private RequestQueue requestQueue0;
-    private RequestQueue requestQueue1;
 
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
@@ -67,8 +63,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        requestQueue0 = Volley.newRequestQueue(getApplicationContext());
-        requestQueue1 = Volley.newRequestQueue(getApplicationContext());
 
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
         mViewPager =(ViewPager) findViewById(R.id.container);
@@ -121,74 +115,9 @@ public class MainActivity extends AppCompatActivity {
                 dbHelper.onChangeUser(dbHelper.msqldb);
                 startActivity(new Intent(MainActivity.this,LoginActivity.class));
                 return true;
-            case R.id.UploadStats:
-                uploadStats(dbHelper.returnUser(CurrentUser.getCurrentuserName()));
-                startActivity(new Intent(MainActivity.this,LoginActivity.class));
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-    public void uploadStats(final User user){
-
-        if(CurrentUser.getUpdated()) {
-            deleteUser(user.getUserName());
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, insertUrl, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-
-                    Toast.makeText(MainActivity.this,error.toString(),Toast.LENGTH_LONG).show();
-                }
-            }) {
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("userName",user.getUserName());
-                    params.put("soloKills",new String(Integer.toString(user.getSoloKills())));
-                    params.put("soloGames",new String(Integer.toString(user.getSoloGames())));
-                    params.put("soloWins",new String(Integer.toString(user.getSoloWins())));
-                    params.put("duoKills",new String(Integer.toString(user.getDuoKills())));
-                    params.put("duoGames",new String(Integer.toString(user.getDuoGames())));
-                    params.put("duoWins",new String(Integer.toString(user.getDuoWins())));
-                    params.put("squadKills",new String(Integer.toString(user.getsquadKills())));
-                    params.put("squadGames",new String(Integer.toString(user.getsquadGames())));
-                    params.put("squadWins",new String(Integer.toString(user.getsquadWins())));
-                    return params;
-                }
-            };
-            Toast.makeText(MainActivity.this,"Upload Successful",Toast.LENGTH_SHORT).show();
-            requestQueue0.add(stringRequest);
-            finish();
-        }else if(!CurrentUser.getUpdated()){
-            Toast.makeText(MainActivity.this,"Please make sure to update your stats before uploading",Toast.LENGTH_LONG).show();
-        }
-    }
-    public void deleteUser(final String userName){
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, deleteUrl, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }){
-            @Override
-            protected Map<String,String> getParams()
-            {
-                Map<String,String> params = new HashMap<String,String>();
-                params.put("userName",userName);
-                return params;
-            }
-        };requestQueue1.add(stringRequest);
-        finish();
     }
 
 }

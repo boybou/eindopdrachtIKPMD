@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FortniteLeaderbords</string>
+    <string name="app_name">Fortnite Leaderboards</string>
     <string name="continuebutton_text">Continue</string>
     <string name="usernametextfield_text">Username</string>
     <string name="recentusers_text">Recent users</string>
@@ -10,9 +10,9 @@
     <string name="duoKills">Duo Kills</string>
     <string name="duoGames">Duo Games</string>
     <string name="duoWins">Duo Wins</string>
-    <string name="squadKills">squad Kills</string>
-    <string name="squadGames">squad Games</string>
-    <string name="squadWins">squad Wins</string>
+    <string name="squadKills">Squad Kills</string>
+    <string name="squadGames">Squad Games</string>
+    <string name="squadWins">Squad Wins</string>
     <string name="updateStats">Update Stats</string>
     <string name="UploadStats">Upload Stats</string>
     <string name="backToLB">Back to leaderbords</string>
