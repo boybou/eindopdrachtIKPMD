@@ -32,6 +32,7 @@ public class StatBreakdownFragment extends Fragment {
     private PieChart winPercentagePieChart;
     private PieChart gamesPlayedPieChart;
     private PieChart totalKillsPieCHart;
+    private DecimalFormat decimalFormat = new DecimalFormat("0.0");
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stat_breakdown,container,false);
         DatabaseHelper dbHelper = DatabaseHelper.getHelper(container.getContext());
@@ -109,13 +110,13 @@ public class StatBreakdownFragment extends Fragment {
         }
         ArrayList<Integer> colors = new ArrayList<>();
         if(soloIntegerentry) {
-            colors.add(Color.rgb(0, 51, 204));
+            colors.add(Color.parseColor("#5c6bc0"));
         }
         if(duoIntegerentry) {
-            colors.add(Color.rgb(153, 102, 255));
+            colors.add(Color.parseColor("#8e99f3"));
         }
         if(squadIntegerentry) {
-            colors.add(Color.rgb(102, 0, 102));
+            colors.add(Color.parseColor("#26418f"));
         }
         if(pieChart.getTag().equals("0")){
 
@@ -137,7 +138,6 @@ public class StatBreakdownFragment extends Fragment {
 
         PieDataSet dataSet = new PieDataSet(yValues,int1Name);
         dataSet.setValueTextSize(10);
-        dataSet.setValueTextColor(Color.WHITE);
         dataSet.setColors(colors);
         PieData pieData = new PieData(xValues,dataSet);
         pieChart.setData(pieData);
@@ -175,21 +175,20 @@ public class StatBreakdownFragment extends Fragment {
         }
         ArrayList<Integer> colors = new ArrayList<>();
         if(soloIntegerentry) {
-            colors.add(Color.rgb(0, 51, 204));
+            colors.add(Color.parseColor("#5c6bc0"));
         }
         if(duoIntegerentry) {
-            colors.add(Color.rgb(153, 102, 255));
+            colors.add(Color.parseColor("#8e99f3"));
         }
         if(squadIntegerentry) {
-            colors.add(Color.rgb(102, 0, 102));
+            colors.add(Color.parseColor("#26418f"));
         }
 
-        pieChart.setCenterText("Average Win Percentage: "+ ((int1+int2+int3)/3)+"%");
+        pieChart.setCenterText("Average Win Percentage: "+ (decimalFormat.format(((int1+int2+int3)/3))+"%"));
 
 
         PieDataSet dataSet = new PieDataSet(yValues,int1Name);
         dataSet.setValueTextSize(10);
-        dataSet.setValueTextColor(Color.WHITE);
         dataSet.setColors(colors);
         PieData pieData = new PieData(xValues,dataSet);
         pieChart.setData(pieData);
@@ -224,16 +223,16 @@ public class StatBreakdownFragment extends Fragment {
         }
         ArrayList<Integer> colors = new ArrayList<>();
         if(soloIntegerentry) {
-            colors.add(Color.rgb(0, 51, 204));
+            colors.add(Color.parseColor("#5c6bc0"));
         }
         if(duoIntegerentry) {
-            colors.add(Color.rgb(153, 102, 255));
+            colors.add(Color.parseColor("#8e99f3"));
         }
         if(squadIntegerentry) {
-            colors.add(Color.rgb(102, 0, 102));
+            colors.add(Color.parseColor("#26418f"));
         }
 
-        pieChart.setCenterText("Average Kills: "+ ((int1+int2+int3)/3));
+        pieChart.setCenterText("Average Kills: "+ decimalFormat.format((int1+int2+int3)/3));
 
         if(yValues.size()==0){
 
@@ -242,7 +241,6 @@ public class StatBreakdownFragment extends Fragment {
 
         PieDataSet dataSet = new PieDataSet(yValues,int1Name);
         dataSet.setValueTextSize(10);
-        dataSet.setValueTextColor(Color.WHITE);
         dataSet.setColors(colors);
         PieData pieData = new PieData(xValues,dataSet);
         pieChart.setData(pieData);
