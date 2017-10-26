@@ -43,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
             dbHelper.onUpgrade(dbHelper.msqldb,2,2);
         }
 
+
         CurrentUser.setUpdated(false);
         if(checkUsername(dbHelper)){
             startActivity(new Intent(LoginActivity.this,MainActivity.class));

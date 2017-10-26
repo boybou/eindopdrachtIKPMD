@@ -51,7 +51,7 @@ public class LeaderbordsListAdapter extends ArrayAdapter<User> {
         vh.kills.setText((CharSequence) Integer.toString((user.getSoloKills()+user.getDuoKills()+user.getsquadKills()))+" Kills");
         vh.games.setText((CharSequence) Integer.toString((user.getDuoGames()+user.getSoloGames()+user.getsquadGames()))+" Games");
         vh.wins.setText((CharSequence) Integer.toString((user.getDuoWins()+user.getSoloWins()+user.getsquadWins()))+" Wins");
-        vh.winPercentage.setText((CharSequence) Integer.toString((((((user.getSoloWins() / user.getSoloGames())*100)+((user.getDuoWins() / user.getDuoGames())*100)+((user.getsquadWins() / user.getsquadGames())*100))))/3)+"% winPercentage ");
+        vh.winPercentage.setText((CharSequence) Integer.toString((((((int)((float)user.getSoloWins() / (float)user.getSoloGames())*100)+(int)(((float)user.getDuoWins() / (float)user.getDuoGames())*100)+(int)(((float)user.getsquadWins() / (float)user.getsquadGames())*100))))/3)+"% winPercentage ");
 
         return convertView;
     }

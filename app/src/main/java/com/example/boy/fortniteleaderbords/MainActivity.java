@@ -54,10 +54,10 @@ public class MainActivity extends AppCompatActivity {
 
     private String insertUrl = "https://boybou.nl/insert.php";
     private String deleteUrl = "https://boybou.nl/delete.php";
-    private String getUrl= "https://boybou.nl/showUsers.php";
+
     private RequestQueue requestQueue0;
     private RequestQueue requestQueue1;
-    private RequestQueue requestQueue2;
+
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
     final DatabaseHelper dbHelper=DatabaseHelper.getHelper(this);
@@ -69,9 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         requestQueue0 = Volley.newRequestQueue(getApplicationContext());
         requestQueue1 = Volley.newRequestQueue(getApplicationContext());
-        requestQueue2 = Volley.newRequestQueue(getApplicationContext());
-//        Toast.makeText(this,CurrentUser.getCurrentuserName(),Toast.LENGTH_SHORT).show();
-//        final DatabaseHelper dbHelper=DatabaseHelper.getHelper(this);
+
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
         mViewPager =(ViewPager) findViewById(R.id.container);
 
@@ -190,40 +188,5 @@ public class MainActivity extends AppCompatActivity {
         };requestQueue1.add(stringRequest);
         finish();
     }
-//    public Gson getUsers(){
-//        final Gson gson = new Gson();
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, getUrl, (String) null, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                try {
-//                    String json = "[";
-//                    JSONArray users = response.getJSONArray("users");
-//                    int counter=1;
-//                    for (int i = 1; i <= users.length(); i++) {
-//                        json = json +users.getString(i);
-//
-//                        if(counter <users.length()){
-//                            json = json +",";
-//                            counter++;
-//                        }
-//
-//
-//                    }
-//                    json = json + "]";
-//                    Log.d("string",json);
-//                    gson.fromJson(json,new TypeToken<List<User>>(){}.getType());
-//
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Toast.makeText(MainActivity.this,error.toString(),Toast.LENGTH_LONG).show();
-//            }
-//        }); requestQueue2.add(jsonObjectRequest);
-//        return gson;
-//    }
+
 }

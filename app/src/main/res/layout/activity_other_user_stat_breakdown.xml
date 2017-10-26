@@ -26,22 +26,22 @@
                 android:layout_height="wrap_content" />
 
             <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/averageKillsPieChart"
+                android:id="@+id/averageKillsPieChart1"
                 android:layout_width="match_parent"
                 android:layout_height="330dp" />
 
             <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/WinPercentagePieChart"
+                android:id="@+id/WinPercentagePieChart1"
                 android:layout_width="match_parent"
                 android:layout_height="330dp" />
 
             <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/gamesPlayedPieChart"
+                android:id="@+id/gamesPlayedPieChart1"
                 android:layout_width="match_parent"
                 android:layout_height="330dp" />
 
             <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/totalKillsPieChart"
+                android:id="@+id/totalKillsPieChart1"
                 android:layout_width="match_parent"
                 android:layout_height="330dp" />
 
