@@ -6,9 +6,21 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ListView
-        android:id="@+id/leaderbordslv"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/refreshLeaderbords"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/refreshbut" />
+
+        <ListView
+            android:id="@+id/leaderbordslv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
 </FrameLayout>

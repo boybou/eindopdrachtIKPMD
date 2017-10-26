@@ -180,9 +180,9 @@ public class OtherUserStatBreakdownActivity extends AppCompatActivity {
         ArrayList<Entry> yValues = new ArrayList<>();
         ArrayList<String> xValues = new ArrayList<>();
 
-        int int1 = ((int)(((float)soloInt1/(float)soloInt2)*100));
-        int int2 = ((int)(((float)duoInt1/(float)duoInt2)*100));
-        int int3 = ((int)(((float)squadInt1/(float)squadInt2)*100));
+        float int1 = ((((float)soloInt1/(float)soloInt2)*100));
+        float int2 = ((((float)duoInt1/(float)duoInt2)*100));
+        float int3 = ((((float)squadInt1/(float)squadInt2)*100));
         boolean soloIntegerentry =false;
         boolean duoIntegerentry =false;
         boolean squadIntegerentry =false;
@@ -229,9 +229,9 @@ public class OtherUserStatBreakdownActivity extends AppCompatActivity {
         ArrayList<Entry> yValues = new ArrayList<>();
         ArrayList<String> xValues = new ArrayList<>();
 
-        int int1 = ((int)(((float)soloInt1/(float)soloInt2)));
-        int int2 = ((int)(((float)duoInt1/(float)duoInt2)));
-        int int3 = ((int)(((float)squadInt1/(float)squadInt2)));
+        float int1 = ((((float)soloInt1/(float)soloInt2)));
+        float int2 = ((((float)duoInt1/(float)duoInt2)));
+        float int3 = ((((float)squadInt1/(float)squadInt2)));
         boolean soloIntegerentry =false;
         boolean duoIntegerentry =false;
         boolean squadIntegerentry =false;
@@ -264,6 +264,10 @@ public class OtherUserStatBreakdownActivity extends AppCompatActivity {
 
         pieChart.setCenterText("Average Kills: "+ ((int1+int2+int3)/3));
 
+        if(yValues.size()==0){
+
+            pieChart.setCenterText("Average Kills: "+ "Less then 0.5, not able to draw chart");
+        }
 
         PieDataSet dataSet = new PieDataSet(yValues,int1Name);
         dataSet.setValueTextSize(10);

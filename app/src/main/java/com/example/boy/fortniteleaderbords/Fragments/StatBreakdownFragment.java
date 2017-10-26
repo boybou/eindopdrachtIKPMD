@@ -151,9 +151,9 @@ public class StatBreakdownFragment extends Fragment {
         ArrayList<Entry> yValues = new ArrayList<>();
         ArrayList<String> xValues = new ArrayList<>();
 
-        int int1 = ((int)(((float)soloInt1/(float)soloInt2)*100));
-        int int2 = ((int)(((float)duoInt1/(float)duoInt2)*100));
-        int int3 = ((int)(((float)squadInt1/(float)squadInt2)*100));
+        float int1 = ((((float)soloInt1/(float)soloInt2)*100));
+        float int2 = ((((float)duoInt1/(float)duoInt2)*100));
+        float int3 = ((((float)squadInt1/(float)squadInt2)*100));
         boolean soloIntegerentry =false;
         boolean duoIntegerentry =false;
         boolean squadIntegerentry =false;
@@ -200,9 +200,9 @@ public class StatBreakdownFragment extends Fragment {
         ArrayList<Entry> yValues = new ArrayList<>();
         ArrayList<String> xValues = new ArrayList<>();
 
-        int int1 = ((int)(((float)soloInt1/(float)soloInt2)));
-        int int2 = ((int)(((float)duoInt1/(float)duoInt2)));
-        int int3 = ((int)(((float)squadInt1/(float)squadInt2)));
+        float int1 = ((((float)soloInt1/(float)soloInt2)));
+        float int2 = ((((float)duoInt1/(float)duoInt2)));
+        float int3 = ((((float)squadInt1/(float)squadInt2)));
         boolean soloIntegerentry =false;
         boolean duoIntegerentry =false;
         boolean squadIntegerentry =false;

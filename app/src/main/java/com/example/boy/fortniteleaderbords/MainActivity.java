@@ -86,9 +86,10 @@ public class MainActivity extends AppCompatActivity {
     }
     private void setupViewPager(ViewPager viewPager){
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new UpdateStatsFragment(),"Update Stats");
-        adapter.addFragment(new StatBreakdownFragment(),"Stat Breakdown");
         adapter.addFragment(new LeaderbordsFragment(),"Leaderbords");
+        adapter.addFragment(new UpdateStatsFragment(),"Update Stats");
+        adapter.addFragment(new StatBreakdownFragment(),"Your Stats Breakdown");
+
         viewPager.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -160,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                     return params;
                 }
             };
-            Toast.makeText(MainActivity.this,"Upload Succesfull",Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this,"Upload Successful",Toast.LENGTH_SHORT).show();
             requestQueue0.add(stringRequest);
             finish();
         }else if(!CurrentUser.getUpdated()){

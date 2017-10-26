@@ -138,7 +138,7 @@ public class UpdateStatsFragment extends Fragment {
         dbHelper.insert(DatabaseInfo.userTableName,null,cv);
         Cursor rs2 = dbHelper.query(DatabaseInfo.userTableName,new String[]{"*"},DatabaseInfo.userTableCollumnNames.userName+"= '" +user.getUserName()+"'",null,null,null,null);
         DatabaseUtils.dumpCursor(rs2);
-        Toast.makeText(context,"Update Succesfull",Toast.LENGTH_SHORT).show();
+        Toast.makeText(context,"Update Successful",Toast.LENGTH_SHORT).show();
 
 
 
