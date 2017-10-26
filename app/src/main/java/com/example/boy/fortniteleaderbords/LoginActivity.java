@@ -38,7 +38,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         final DatabaseHelper dbHelper = DatabaseHelper.getHelper(this);
-//        dbHelper.onUpgrade(dbHelper.msqldb,2,2);
+        if(!dbHelper.query(DatabaseInfo.userTableName,new String[]{"*"},null,null,null,null,null).moveToFirst())
+        {
+            dbHelper.onUpgrade(dbHelper.msqldb,2,2);
+        }
 
         CurrentUser.setUpdated(false);
         if(checkUsername(dbHelper)){
@@ -100,6 +103,12 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
+
     private boolean checkUsername(DatabaseHelper dbHelper){
         Cursor rs = dbHelper.query(DatabaseInfo.currentUserTableName,new String[]{"*"},null,null,null,null,null);
         if(rs.moveToFirst()) {

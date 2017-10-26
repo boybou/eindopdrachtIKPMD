@@ -1,15 +1,18 @@
-package com.example.boy.fortniteleaderbords.Fragments;
+package com.example.boy.fortniteleaderbords;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.boy.fortniteleaderbords.Database.DatabaseHelper;
@@ -26,26 +29,40 @@ import com.github.mikephil.charting.data.PieDataSet;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class StatBreakdownFragment extends Fragment {
+public class OtherUserStatBreakdownActivity extends AppCompatActivity {
 
+    private User user;
     private PieChart averageKillsPieChart;
     private PieChart winPercentagePieChart;
     private PieChart gamesPlayedPieChart;
     private PieChart totalKillsPieCHart;
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_stat_breakdown,container,false);
-        DatabaseHelper dbHelper = DatabaseHelper.getHelper(container.getContext());
-        TextView userName = (TextView) view.findViewById(R.id.userName);
-        userName.setText("Stats of: "+CurrentUser.getCurrentuserName());
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_other_user_stat_breakdown);
+
+        TextView userName = (TextView) findViewById(R.id.userName);
+        Bundle b = getIntent().getExtras();
+        if(b != null){
+            user = new User(b.getString("userName"),b.getInt("soloKills"),b.getInt("soloGames"),b.getInt("soloWins"),b.getInt("duoKills"),b.getInt("duoGames"),b.getInt("duoWins"),b.getInt("squadKills"),b.getInt("squadGames"),b.getInt("squadWins"));
+        }
+        userName.setText("Stats of: "+user.getUserName());
         userName.setTextSize(20);
         userName.setTextColor(Color.BLACK);
+        Button backToLBButton = (Button)findViewById(R.id.backToLB);
+        backToLBButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(OtherUserStatBreakdownActivity.this,MainActivity.class));
+            }
+        });
 
 
 
-        averageKillsPieChart =(PieChart) view.findViewById(R.id.averageKillsPieChart);
-        winPercentagePieChart = (PieChart) view.findViewById(R.id.WinPercentagePieChart);
-        gamesPlayedPieChart = (PieChart) view.findViewById(R.id.gamesPlayedPieChart);
-        totalKillsPieCHart = (PieChart) view.findViewById(R.id.totalKillsPieChart);
+
+        averageKillsPieChart =(PieChart) findViewById(R.id.averageKillsPieChart);
+        winPercentagePieChart = (PieChart) findViewById(R.id.WinPercentagePieChart);
+        gamesPlayedPieChart = (PieChart) findViewById(R.id.gamesPlayedPieChart);
+        totalKillsPieCHart = (PieChart) findViewById(R.id.totalKillsPieChart);
         averageKillsPieChart.setTouchEnabled(false);
         winPercentagePieChart.setTouchEnabled(false);
         gamesPlayedPieChart.setTouchEnabled(false);
@@ -67,27 +84,32 @@ public class StatBreakdownFragment extends Fragment {
         gamesPlayedPieChart.animateY(700, Easing.EasingOption.EaseInOutQuad);
         totalKillsPieCHart.animateY(700, Easing.EasingOption.EaseInOutQuad);
 
-        if(dbHelper.query(DatabaseInfo.userTableName,new String[]{DatabaseInfo.userTableCollumnNames.userName},DatabaseInfo.userTableCollumnNames.userName+"= '" +CurrentUser.getCurrentuserName()+"'",null,null,null,null).moveToFirst());
-        {
-            User user = dbHelper.returnUser(CurrentUser.getCurrentuserName());
+
+
             if(user.getSoloGames()!=0&&user.getDuoGames()!=0&&user.getsquadGames()!=0) {
                 setData((user.getSoloKills() / user.getSoloGames()), (user.getDuoKills() / user.getDuoGames()), (user.getsquadKills() / user.getsquadGames()), "Average Solo Kills", "Average Duo Kills", "Average squad Kills", averageKillsPieChart);
             }
             if((user.getDuoKills()+user.getSoloKills()+user.getsquadKills())!=0){
                 setData(user.getSoloKills(), user.getDuoKills(), user.getsquadKills(), "Solo Kills", "Duo Kills", "squad Kills", totalKillsPieCHart);
-        }
+            }
             if((user.getSoloGames()+user.getDuoGames()+user.getsquadGames())!=0) {
                 setData(user.getSoloGames(), user.getDuoGames(), user.getsquadGames(), "Solo Games", "Duo Games", "squad Games", gamesPlayedPieChart);
             }
             if(user.getSoloGames()!=0&&user.getDuoGames()!=0&&user.getsquadGames()!=0) {
                 setData(((user.getSoloWins() / user.getSoloGames())*100), ((user.getDuoWins() / user.getDuoGames())*100), ((user.getsquadWins() / user.getsquadGames())*100), "Solo Win Percentage", "Duo Win Percentage", "squad Win Percentage", winPercentagePieChart);
             }
-        }
 
 
-        return view;
+
+
     }
-    private void setData(int soloInteger1,int duoInteger2,int squadInteger3,String int1Name,String int2Name,String int3Name,PieChart pieChart){
+
+    @Override
+    public void onBackPressed() {
+
+    }
+
+    private void setData(int soloInteger1, int duoInteger2, int squadInteger3, String int1Name, String int2Name, String int3Name, PieChart pieChart){
 
         ArrayList<Entry> yValues = new ArrayList<>();
         ArrayList<String> xValues = new ArrayList<>();

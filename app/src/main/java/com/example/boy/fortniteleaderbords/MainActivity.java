@@ -30,6 +30,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.boy.fortniteleaderbords.Database.DatabaseHelper;
@@ -38,15 +39,25 @@ import com.example.boy.fortniteleaderbords.Fragments.StatBreakdownFragment;
 import com.example.boy.fortniteleaderbords.Fragments.UpdateStatsFragment;
 import com.example.boy.fortniteleaderbords.Models.CurrentUser;
 import com.example.boy.fortniteleaderbords.Models.User;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
     private String insertUrl = "https://boybou.nl/insert.php";
     private String deleteUrl = "https://boybou.nl/delete.php";
-    private RequestQueue requestQueue;
+    private String getUrl= "https://boybou.nl/showUsers.php";
+    private RequestQueue requestQueue0;
+    private RequestQueue requestQueue1;
+    private RequestQueue requestQueue2;
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
     final DatabaseHelper dbHelper=DatabaseHelper.getHelper(this);
@@ -56,7 +67,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue0 = Volley.newRequestQueue(getApplicationContext());
+        requestQueue1 = Volley.newRequestQueue(getApplicationContext());
+        requestQueue2 = Volley.newRequestQueue(getApplicationContext());
 //        Toast.makeText(this,CurrentUser.getCurrentuserName(),Toast.LENGTH_SHORT).show();
 //        final DatabaseHelper dbHelper=DatabaseHelper.getHelper(this);
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
@@ -64,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         setupViewPager(mViewPager);
+
         mViewPager.getAdapter().notifyDataSetChanged();
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
@@ -105,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.ChangeUser:
                 CurrentUser.setCurrentuserName("");
                 dbHelper.onChangeUser(dbHelper.msqldb);
-                Log.d("ah oh","ah oh");
                 startActivity(new Intent(MainActivity.this,LoginActivity.class));
                 return true;
             case R.id.UploadStats:
@@ -148,8 +161,8 @@ public class MainActivity extends AppCompatActivity {
                     return params;
                 }
             };
-            Log.d("whoooo","whowohwohwoh");
-            requestQueue.add(stringRequest);
+            Toast.makeText(MainActivity.this,"Upload Succesfull",Toast.LENGTH_SHORT).show();
+            requestQueue0.add(stringRequest);
             finish();
         }else if(!CurrentUser.getUpdated()){
             Toast.makeText(MainActivity.this,"Please make sure to update your stats before uploading",Toast.LENGTH_LONG).show();
@@ -174,7 +187,43 @@ public class MainActivity extends AppCompatActivity {
                 params.put("userName",userName);
                 return params;
             }
-        };requestQueue.add(stringRequest);
+        };requestQueue1.add(stringRequest);
         finish();
     }
+//    public Gson getUsers(){
+//        final Gson gson = new Gson();
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, getUrl, (String) null, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                try {
+//                    String json = "[";
+//                    JSONArray users = response.getJSONArray("users");
+//                    int counter=1;
+//                    for (int i = 1; i <= users.length(); i++) {
+//                        json = json +users.getString(i);
+//
+//                        if(counter <users.length()){
+//                            json = json +",";
+//                            counter++;
+//                        }
+//
+//
+//                    }
+//                    json = json + "]";
+//                    Log.d("string",json);
+//                    gson.fromJson(json,new TypeToken<List<User>>(){}.getType());
+//
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Toast.makeText(MainActivity.this,error.toString(),Toast.LENGTH_LONG).show();
+//            }
+//        }); requestQueue2.add(jsonObjectRequest);
+//        return gson;
+//    }
 }

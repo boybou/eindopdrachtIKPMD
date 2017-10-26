@@ -92,6 +92,7 @@ public class UpdateStatsFragment extends Fragment {
         updateStatsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(Integer.parseInt(duoWins.getText().toString())<=Integer.parseInt(duoGames.getText().toString())&&Integer.parseInt(soloWins.getText().toString())<=Integer.parseInt(soloGames.getText().toString())&&Integer.parseInt(squadWins.getText().toString())<=Integer.parseInt(squadGames.getText().toString())){
                 try {
                     insertIntoDatabase(container.getContext(),new User(CurrentUser.getCurrentuserName(),new Integer(parseInt(soloKills.getText().toString())),
                             new Integer(parseInt(soloGames.getText().toString())),new Integer(parseInt(soloWins.getText().toString())),
@@ -102,6 +103,10 @@ public class UpdateStatsFragment extends Fragment {
                     startActivity(new Intent(container.getContext(),MainActivity.class));
                 }catch (java.lang.NumberFormatException e){
                     Toast.makeText(container.getContext(),"Make sure you fill in all the number fields and make sure there are no numeric values over 10 million", Toast.LENGTH_LONG).show();
+                }
+
+                }else{
+                    Toast.makeText(container.getContext(),"You cant win more games than you have play",Toast.LENGTH_LONG).show();
                 }
             }
         });
