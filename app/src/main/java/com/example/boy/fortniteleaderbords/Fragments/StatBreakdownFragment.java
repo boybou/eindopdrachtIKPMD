@@ -235,6 +235,10 @@ public class StatBreakdownFragment extends Fragment {
 
         pieChart.setCenterText("Average Kills: "+ ((int1+int2+int3)/3));
 
+        if(yValues.size()==0){
+
+            pieChart.setCenterText("Average Kills: "+ "Less then 0.5, not able to draw chart");
+        }
 
         PieDataSet dataSet = new PieDataSet(yValues,int1Name);
         dataSet.setValueTextSize(10);
