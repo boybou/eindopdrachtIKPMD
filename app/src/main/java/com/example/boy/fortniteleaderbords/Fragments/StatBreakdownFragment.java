@@ -69,19 +69,15 @@ public class StatBreakdownFragment extends Fragment {
         if(dbHelper.query(DatabaseInfo.userTableName,new String[]{DatabaseInfo.userTableCollumnNames.userName},DatabaseInfo.userTableCollumnNames.userName+"= '" +CurrentUser.getCurrentuserName()+"'",null,null,null,null).moveToFirst());
         {
             User user = dbHelper.returnUser(CurrentUser.getCurrentuserName());
-            if(user.getSoloGames()!=0&&user.getDuoGames()!=0&&user.getsquadGames()!=0) {
-                setData((user.getSoloKills() / user.getSoloGames()), (user.getDuoKills() / user.getDuoGames()), (user.getsquadKills() / user.getsquadGames()), "Average Solo Kills", "Average Duo Kills", "Average squad Kills", averageKillsPieChart);
-            }
+                setAverageData(user.getSoloKills(),user.getSoloGames(),user.getDuoKills(),user.getDuoGames(),user.getsquadKills(),user.getsquadGames(), "Average Solo Kills", "Average Duo Kills", "Average squad Kills", averageKillsPieChart);
             if((user.getDuoKills()+user.getSoloKills()+user.getsquadKills())!=0){
                 setData(user.getSoloKills(), user.getDuoKills(), user.getsquadKills(), "Solo Kills", "Duo Kills", "squad Kills", totalKillsPieCHart);
         }
-            if((user.getSoloGames()+user.getDuoGames()+user.getsquadGames())!=0) {
                 setData(user.getSoloGames(), user.getDuoGames(), user.getsquadGames(), "Solo Games", "Duo Games", "squad Games", gamesPlayedPieChart);
-            }
-            if((user.getSoloGames()!=0)&&(user.getDuoGames()!=0)&&(user.getsquadGames()!=0)) {
 
-                setData((int)(((float)user.getSoloWins() /(float) user.getSoloGames())*100),(int)(((float)user.getDuoWins() / (float)user.getDuoGames())*100),(int)(((float)user.getsquadWins() / (float)user.getsquadGames())*100), "Solo Win Percentage", "Duo Win Percentage", "squad Win Percentage", winPercentagePieChart);
-            }
+
+                setPercentageData(user.getSoloWins(),user.getSoloGames(),user.getDuoWins(),user.getDuoGames(),user.getsquadWins(),user.getsquadGames(), "Solo Win Percentage", "Duo Win Percentage", "squad Win Percentage", winPercentagePieChart);
+
         }
 
 
@@ -141,6 +137,7 @@ public class StatBreakdownFragment extends Fragment {
 
         PieDataSet dataSet = new PieDataSet(yValues,int1Name);
         dataSet.setValueTextSize(10);
+        dataSet.setValueTextColor(Color.WHITE);
         dataSet.setColors(colors);
         PieData pieData = new PieData(xValues,dataSet);
         pieChart.setData(pieData);
@@ -149,6 +146,105 @@ public class StatBreakdownFragment extends Fragment {
 
 
     }
+    private void setPercentageData(int soloInt1,int soloInt2,int duoInt1,int duoInt2,int squadInt1,int squadInt2,String int1Name,String int2Name,String int3Name,PieChart pieChart){
+
+        ArrayList<Entry> yValues = new ArrayList<>();
+        ArrayList<String> xValues = new ArrayList<>();
+
+        int int1 = ((int)(((float)soloInt1/(float)soloInt2)*100));
+        int int2 = ((int)(((float)duoInt1/(float)duoInt2)*100));
+        int int3 = ((int)(((float)squadInt1/(float)squadInt2)*100));
+        boolean soloIntegerentry =false;
+        boolean duoIntegerentry =false;
+        boolean squadIntegerentry =false;
+        if(int1!=0) {
+            yValues.add(new Entry(int1, 0));
+            xValues.add(int1Name);
+            soloIntegerentry = true;
+
+        }
+        if(int2!=0) {
+            yValues.add(new Entry(int2, 1));
+            xValues.add(int2Name);
+            duoIntegerentry = true;
+        }
+        if(int3!=0) {
+            yValues.add(new Entry(int3, 2));
+            xValues.add(int3Name);
+            squadIntegerentry = true;
+        }
+        ArrayList<Integer> colors = new ArrayList<>();
+        if(soloIntegerentry) {
+            colors.add(Color.rgb(0, 51, 204));
+        }
+        if(duoIntegerentry) {
+            colors.add(Color.rgb(153, 102, 255));
+        }
+        if(squadIntegerentry) {
+            colors.add(Color.rgb(102, 0, 102));
+        }
+
+        pieChart.setCenterText("Average Win Percentage: "+ ((int1+int2+int3)/3)+"%");
+
+
+        PieDataSet dataSet = new PieDataSet(yValues,int1Name);
+        dataSet.setValueTextSize(10);
+        dataSet.setValueTextColor(Color.WHITE);
+        dataSet.setColors(colors);
+        PieData pieData = new PieData(xValues,dataSet);
+        pieChart.setData(pieData);
+        pieChart.invalidate();
+    }
+    private void setAverageData(int soloInt1,int soloInt2,int duoInt1,int duoInt2,int squadInt1,int squadInt2,String int1Name,String int2Name,String int3Name,PieChart pieChart){
+
+        ArrayList<Entry> yValues = new ArrayList<>();
+        ArrayList<String> xValues = new ArrayList<>();
+
+        int int1 = ((int)(((float)soloInt1/(float)soloInt2)));
+        int int2 = ((int)(((float)duoInt1/(float)duoInt2)));
+        int int3 = ((int)(((float)squadInt1/(float)squadInt2)));
+        boolean soloIntegerentry =false;
+        boolean duoIntegerentry =false;
+        boolean squadIntegerentry =false;
+        if(int1!=0) {
+            yValues.add(new Entry(int1, 0));
+            xValues.add(int1Name);
+            soloIntegerentry = true;
+
+        }
+        if(int2!=0) {
+            yValues.add(new Entry(int2, 1));
+            xValues.add(int2Name);
+            duoIntegerentry = true;
+        }
+        if(int3!=0) {
+            yValues.add(new Entry(int3, 2));
+            xValues.add(int3Name);
+            squadIntegerentry = true;
+        }
+        ArrayList<Integer> colors = new ArrayList<>();
+        if(soloIntegerentry) {
+            colors.add(Color.rgb(0, 51, 204));
+        }
+        if(duoIntegerentry) {
+            colors.add(Color.rgb(153, 102, 255));
+        }
+        if(squadIntegerentry) {
+            colors.add(Color.rgb(102, 0, 102));
+        }
+
+        pieChart.setCenterText("Average Kills: "+ ((int1+int2+int3)/3));
+
+
+        PieDataSet dataSet = new PieDataSet(yValues,int1Name);
+        dataSet.setValueTextSize(10);
+        dataSet.setValueTextColor(Color.WHITE);
+        dataSet.setColors(colors);
+        PieData pieData = new PieData(xValues,dataSet);
+        pieChart.setData(pieData);
+        pieChart.invalidate();
+    }
+
 
 
 }
