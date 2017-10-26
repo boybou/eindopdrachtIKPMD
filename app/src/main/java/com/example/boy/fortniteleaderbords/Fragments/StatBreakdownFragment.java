@@ -80,7 +80,7 @@ public class StatBreakdownFragment extends Fragment {
             }
             if((user.getSoloGames()!=0)&&(user.getDuoGames()!=0)&&(user.getsquadGames()!=0)) {
 
-                setData(((int)((float)user.getSoloWins() /(float) user.getSoloGames())*100),(int)(((float)user.getDuoWins() / (float)user.getDuoGames())*100),(int)(((float)user.getsquadWins() / (float)user.getsquadGames())*100), "Solo Win Percentage", "Duo Win Percentage", "squad Win Percentage", winPercentagePieChart);
+                setData((int)(((float)user.getSoloWins() /(float) user.getSoloGames())*100),(int)(((float)user.getDuoWins() / (float)user.getDuoGames())*100),(int)(((float)user.getsquadWins() / (float)user.getsquadGames())*100), "Solo Win Percentage", "Duo Win Percentage", "squad Win Percentage", winPercentagePieChart);
             }
         }
 
