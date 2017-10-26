@@ -63,6 +63,7 @@ public class LeaderbordsFragment extends Fragment {
                 b.putInt("squadWins",userModels.get(i).getsquadWins());
                 intent.putExtras(b);
                 startActivity(intent);
+                
 
 
             }

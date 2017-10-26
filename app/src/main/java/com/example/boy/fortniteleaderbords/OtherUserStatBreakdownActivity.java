@@ -109,6 +109,12 @@ public class OtherUserStatBreakdownActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
+
     private void setData(int soloInteger1, int duoInteger2, int squadInteger3, String int1Name, String int2Name, String int3Name, PieChart pieChart){
 
         ArrayList<Entry> yValues = new ArrayList<>();
