@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
         mViewPager =(ViewPager) findViewById(R.id.container);
 
+        mViewPager.setCurrentItem(0);
 
         setupViewPager(mViewPager);
         mViewPager.setOffscreenPageLimit(3);
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         else if(StaticValues.getUpdated()==2){
             mViewPager.setCurrentItem(1);
             Toast.makeText(MainActivity.this,"No internet connection, saving stats locally",Toast.LENGTH_LONG).show();
+            StaticValues.setUpdated(0);
         }
         else{
             StaticValues.setUpdated(0);
