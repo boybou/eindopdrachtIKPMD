@@ -75,7 +75,7 @@ public class LeaderbordsFragment extends Fragment {
 
 
                 getUsers();
-                if(StaticValues.getList().size()!=0) {
+                if(StaticValues.getList()!=null) {
                     mAdapter = new LeaderbordsListAdapter(container.getContext(), 0, StaticValues.getList());
                     mListView.setAdapter(mAdapter);
                 }else{

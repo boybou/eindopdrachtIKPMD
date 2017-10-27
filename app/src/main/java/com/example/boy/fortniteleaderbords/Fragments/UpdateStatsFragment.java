@@ -132,12 +132,12 @@ public class UpdateStatsFragment extends Fragment {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, insertUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                StaticValues.setUpdated(2);
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
+                StaticValues.setUpdated(2);
             }
         }) {
             @Override
