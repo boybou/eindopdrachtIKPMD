@@ -1,25 +1,14 @@
 package com.example.boy.fortniteleaderbords;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.boy.fortniteleaderbords.Database.DatabaseHelper;
-import com.example.boy.fortniteleaderbords.Database.DatabaseInfo;
-import com.example.boy.fortniteleaderbords.Models.CurrentUser;
 import com.example.boy.fortniteleaderbords.Models.User;
-import com.example.boy.fortniteleaderbords.R;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;

@@ -4,7 +4,9 @@
     <modules>
       <module fileurl="file://C:\Users\boybo\StudioProjects\eindopdrachtIKPMD\FortniteLeaderbords.iml" filepath="C:\Users\boybo\StudioProjects\eindopdrachtIKPMD\FortniteLeaderbords.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/eindopdrachtIKPMD.iml" filepath="$PROJECT_DIR$/eindopdrachtIKPMD.iml" />
+      <module fileurl="file://C:\Users\Boy\AndroidStudioProjects\eindopdrachtIKPMD2\app\app.iml" filepath="C:\Users\Boy\AndroidStudioProjects\eindopdrachtIKPMD2\app\app.iml" />
+      <module fileurl="file://C:\Users\Boy\AndroidStudioProjects\eindopdrachtIKPMD2\eindopdrachtIKPMD.iml" filepath="C:\Users\Boy\AndroidStudioProjects\eindopdrachtIKPMD2\eindopdrachtIKPMD.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/eindopdrachtIKPMD2.iml" filepath="$PROJECT_DIR$/.idea/eindopdrachtIKPMD2.iml" />
     </modules>
   </component>
 </project>

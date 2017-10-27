@@ -10,7 +10,7 @@ function showUsers()
 {
 	global $connect;
 
-	$query = "SELECT * FROM users ORDER BY soloKills DESC";
+	$query = "SELECT * FROM users ORDER BY (soloKills+duoKills+squadKills) DESC";
 
 	$result = mysqli_query($connect,$query);
 	$number_of_rows = mysqli_num_rows($result);

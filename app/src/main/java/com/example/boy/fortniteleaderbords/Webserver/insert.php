@@ -20,8 +20,9 @@ function createUser()
     $squadKills      = $_POST["squadKills"];
     $squadGames      = $_POST["squadGames"];
     $squadWins       = $_POST["squadWins"];
+    $date            = $_POST["date"];
 
-    $query = "INSERT INTO users(userName,soloKills,soloGames,soloWins,duoKills,duoGames,duoWins,squadKills,squadGames,squadWins) VALUES('$userName','$soloKills','$soloGames','$soloWins','$duoKills','$duoGames','$duoWins','$squadKills','$squadGames','$squadWins')";
+    $query = "INSERT INTO users(userName,soloKills,soloGames,soloWins,duoKills,duoGames,duoWins,squadKills,squadGames,squadWins,date) VALUES('$userName','$soloKills','$soloGames','$soloWins','$duoKills','$duoGames','$duoWins','$squadKills','$squadGames','$squadWins','$date')";
     mysqli_query($connect,$query) or die(mysqli_error($connect));
     mysqli_close($connect);
 

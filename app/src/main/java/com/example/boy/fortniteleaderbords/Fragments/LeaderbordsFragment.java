@@ -4,13 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,13 +18,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.boy.fortniteleaderbords.Models.CurrentUser;
+import com.example.boy.fortniteleaderbords.Models.StaticValues;
 import com.example.boy.fortniteleaderbords.Models.LeaderbordsListAdapter;
 import com.example.boy.fortniteleaderbords.Models.User;
 import com.example.boy.fortniteleaderbords.OtherUserStatBreakdownActivity;
 import com.example.boy.fortniteleaderbords.R;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,7 +50,7 @@ public class LeaderbordsFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(container.getContext(), OtherUserStatBreakdownActivity.class);
                 Bundle b = new Bundle();
-                userModels = CurrentUser.getList();
+                userModels = StaticValues.getList();
                 b.putString("userName",userModels.get(i).getUserName());
                 b.putInt("soloKills",userModels.get(i).getSoloKills());
                 b.putInt("soloGames",userModels.get(i).getSoloGames());
@@ -70,20 +68,19 @@ public class LeaderbordsFragment extends Fragment {
 
             }
         });
-
-
         getUsers();
-
-
         refreshbut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
-
-                    mAdapter = new LeaderbordsListAdapter(container.getContext(), 0, CurrentUser.getList());
+                getUsers();
+                if(StaticValues.getList().size()!=0) {
+                    mAdapter = new LeaderbordsListAdapter(container.getContext(), 0, StaticValues.getList());
                     mListView.setAdapter(mAdapter);
-
+                }else{
+                    Toast.makeText(getContext(),"No internet connection",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -91,7 +88,8 @@ public class LeaderbordsFragment extends Fragment {
 
         return view;
     }
-    public void getUsers(){
+    public boolean getUsers(){
+        final boolean[] returnValue = {false};
        final List<User> list = new ArrayList<User>();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, getUrl, (String) null, new Response.Listener<JSONObject>() {
             @Override
@@ -101,15 +99,15 @@ public class LeaderbordsFragment extends Fragment {
                     for (int i = 0; i < users.length(); i++) {
                         JSONObject user = users.getJSONObject(i);
                         User user111 = new User(user.getString("userName"),user.getInt("soloKills"),user.getInt("soloGames"),user.getInt("soloWins"),user.getInt("duoKills"),user.getInt("duoGames"),user.getInt("duoWins"),user.getInt("squadKills"),user.getInt("squadGames"),user.getInt("squadWins"));
+                        user111.setUpdatedTime(user.getString("date"));
 
-
-                        list.add(new User(user.getString("userName"),user.getInt("soloKills"),user.getInt("soloGames"),user.getInt("soloWins"),user.getInt("duoKills"),user.getInt("duoGames"),user.getInt("duoWins"),user.getInt("squadKills"),user.getInt("squadGames"),user.getInt("squadWins")));
-
+                        list.add(user111);
+                        returnValue[0] =true;
 
 
                     }
 
-                    CurrentUser.setList(list);
+                    StaticValues.setList(list);
 
 
 
@@ -122,9 +120,10 @@ public class LeaderbordsFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-//                Toast.makeText(container.this,error.toString(),Toast.LENGTH_LONG).show();
+
             }
         }); requestQueue.add(jsonObjectRequest);
+        return returnValue[0];
 
 
     }

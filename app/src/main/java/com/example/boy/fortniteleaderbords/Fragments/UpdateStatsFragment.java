@@ -5,12 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +24,13 @@ import com.android.volley.toolbox.Volley;
 import com.example.boy.fortniteleaderbords.Database.DatabaseHelper;
 import com.example.boy.fortniteleaderbords.Database.DatabaseInfo;
 import com.example.boy.fortniteleaderbords.MainActivity;
-import com.example.boy.fortniteleaderbords.Models.CurrentUser;
+import com.example.boy.fortniteleaderbords.Models.StaticValues;
 import com.example.boy.fortniteleaderbords.Models.User;
 import com.example.boy.fortniteleaderbords.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,8 +41,6 @@ public class UpdateStatsFragment extends Fragment {
     private static final String TAG = "1";
     private String insertUrl = "https://boybou.nl/insert.php";
     private String deleteUrl = "https://boybou.nl/delete.php";
-    private boolean localUpdateSucces;
-    private  boolean serverUpdateSucces;
 
     private RequestQueue requestQueue0;
     private RequestQueue requestQueue1;
@@ -55,16 +53,7 @@ public class UpdateStatsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         final DatabaseHelper dbHelper = DatabaseHelper.getHelper(container.getContext());
 
-        if(localUpdateSucces){
-            if(serverUpdateSucces){
-                Toast.makeText(getContext(),"Update Successful",Toast.LENGTH_SHORT).show();
-                localUpdateSucces = false;
-                serverUpdateSucces = false;
-            }else {
-                localUpdateSucces = false;
-                Toast.makeText(getContext(),"No internet connection, saving stats locally",Toast.LENGTH_SHORT).show();
-            }
-        }
+
         requestQueue0 = Volley.newRequestQueue(container.getContext());
         requestQueue1 = Volley.newRequestQueue(container.getContext());
 
@@ -79,37 +68,20 @@ public class UpdateStatsFragment extends Fragment {
         final EditText squadGames = (EditText) view.findViewById(R.id.squadGames);
         final EditText squadWins = (EditText) view.findViewById(R.id.squadWins);
         Button updateStatsButton = (Button)view.findViewById(R.id.updateStatsButton);
-        Cursor rs = dbHelper.query(DatabaseInfo.userTableName,new String[]{"*"},DatabaseInfo.userTableCollumnNames.userName+"= '" +CurrentUser.getCurrentuserName()+"'",null,null,null,null);
+        Cursor rs = dbHelper.query(DatabaseInfo.userTableName,new String[]{"*"},DatabaseInfo.userTableCollumnNames.userName+"= '" + StaticValues.getCurrentuserName()+"'",null,null,null,null);
 
         if(rs.moveToFirst()){
-            User user = dbHelper.returnUser(CurrentUser.getCurrentuserName());
-            if(user.getSoloKills()!=0){
+            User user = dbHelper.returnUser(StaticValues.getCurrentuserName());
                 soloKills.setText(""+user.getSoloKills());
-            }
-            if(user.getSoloGames()!=0){
                 soloGames.setText(""+user.getSoloGames());
-            }
-            if(user.getSoloWins()!=0){
                 soloWins.setText(""+user.getSoloWins());
-            }
-            if(user.getDuoKills()!=0){
                 duoKills.setText(""+user.getDuoKills());
-            }
-            if(user.getDuoGames()!=0){
                 duoGames.setText(""+user.getDuoGames());
-            }
-            if(user.getDuoWins()!=0){
                 duoWins.setText(""+user.getDuoWins());
-            }
-            if(user.getsquadKills()!=0){
                 squadKills.setText(""+user.getsquadKills());
-            }
-            if(user.getsquadGames()!=0){
                 squadGames.setText(""+user.getsquadGames());
-            }
-            if(user.getsquadWins()!=0){
                 squadWins.setText(""+user.getsquadWins());
-            }
+
 
 
 
@@ -123,19 +95,25 @@ public class UpdateStatsFragment extends Fragment {
 
                 try {
                     if(Integer.parseInt(duoWins.getText().toString())<=Integer.parseInt(duoGames.getText().toString())&&Integer.parseInt(soloWins.getText().toString())<=Integer.parseInt(soloGames.getText().toString())&&Integer.parseInt(squadWins.getText().toString())<=Integer.parseInt(squadGames.getText().toString())) {
+                        if((Integer.parseInt(duoGames.getText().toString()) == 0 && Integer.parseInt(duoKills.getText().toString()) != 0) || (Integer.parseInt(squadGames.getText().toString()) == 0 && Integer.parseInt(squadKills.getText().toString()) != 0) || (Integer.parseInt(soloGames.getText().toString()) == 0 && Integer.parseInt(soloKills.getText().toString()) != 0))
+                        {
+                            Toast.makeText(container.getContext(), "You can't have kills if you have played 0 games", Toast.LENGTH_LONG).show();
+                    }else {
+                        if(Integer.parseInt(duoGames.getText().toString())==0&&Integer.parseInt(soloGames.getText().toString())==0&&Integer.parseInt(squadGames.getText().toString())==0){
+                            Toast.makeText(container.getContext(), "you need to have played more than 0 games", Toast.LENGTH_LONG).show();
 
-                        insertIntoDatabase(container.getContext(), new User(CurrentUser.getCurrentuserName(), new Integer(parseInt(soloKills.getText().toString())),
-                                new Integer(parseInt(soloGames.getText().toString())), new Integer(parseInt(soloWins.getText().toString())),
-                                new Integer(parseInt(duoKills.getText().toString())), new Integer(parseInt(duoGames.getText().toString())),
-                                new Integer(parseInt(duoWins.getText().toString())), new Integer(parseInt(squadKills.getText().toString())),
-                                new Integer(parseInt(squadGames.getText().toString())), new Integer(parseInt(squadWins.getText().toString()))));
-                        CurrentUser.setUpdated(true);
-                        localUpdateSucces = true;
-                        uploadStats(dbHelper.returnUser(CurrentUser.getCurrentuserName()));
-                        startActivity(new Intent(getContext(),MainActivity.class));
-
+                        } else {
+                            insertIntoDatabase(container.getContext(), new User(StaticValues.getCurrentuserName(), new Integer(parseInt(soloKills.getText().toString())),
+                                    new Integer(parseInt(soloGames.getText().toString())), new Integer(parseInt(soloWins.getText().toString())),
+                                    new Integer(parseInt(duoKills.getText().toString())), new Integer(parseInt(duoGames.getText().toString())),
+                                    new Integer(parseInt(duoWins.getText().toString())), new Integer(parseInt(squadKills.getText().toString())),
+                                    new Integer(parseInt(squadGames.getText().toString())), new Integer(parseInt(squadWins.getText().toString()))));
+                            uploadStats(dbHelper.returnUser(StaticValues.getCurrentuserName()));
+                            startActivity(new Intent(getContext(), MainActivity.class));
+                        }
+                    }
                     }else{
-                    Toast.makeText(container.getContext(),"You cant win more games than you have play",Toast.LENGTH_LONG).show();
+                    Toast.makeText(container.getContext(),"You can't win more games than you have played",Toast.LENGTH_LONG).show();
                 }
                 }catch (java.lang.NumberFormatException e){
                     Toast.makeText(container.getContext(),"Make sure you fill in all the number fields and make sure there are no numeric values over 10 million", Toast.LENGTH_LONG).show();
@@ -154,12 +132,11 @@ public class UpdateStatsFragment extends Fragment {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, insertUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                serverUpdateSucces = true;
+                StaticValues.setUpdated(2);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                serverUpdateSucces = false;
                 Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
             }
         }) {
@@ -176,6 +153,9 @@ public class UpdateStatsFragment extends Fragment {
                 params.put("squadKills", new String(Integer.toString(user.getsquadKills())));
                 params.put("squadGames", new String(Integer.toString(user.getsquadGames())));
                 params.put("squadWins", new String(Integer.toString(user.getsquadWins())));
+                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+                String currentDateandTime = sdf.format(new Date());
+                params.put("date",new String(""+currentDateandTime));
                 return params;
 
             }
@@ -224,8 +204,7 @@ public class UpdateStatsFragment extends Fragment {
         cv.put(DatabaseInfo.userTableCollumnNames.squadGames,user.getsquadGames());
         cv.put(DatabaseInfo.userTableCollumnNames.squadWins,user.getsquadWins());
         dbHelper.insert(DatabaseInfo.userTableName,null,cv);
-        Cursor rs2 = dbHelper.query(DatabaseInfo.userTableName,new String[]{"*"},DatabaseInfo.userTableCollumnNames.userName+"= '" +user.getUserName()+"'",null,null,null,null);
-        DatabaseUtils.dumpCursor(rs2);
+        StaticValues.setUpdated(1);
 
 
 

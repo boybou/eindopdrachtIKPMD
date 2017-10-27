@@ -28,96 +28,134 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <EditText
-                    android:id="@+id/soloKills"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="@string/soloKills"
-                    android:inputType="number" />
+                <LinearLayout android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView android:text="@string/soloKills"
+                        android:layout_margin="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
-                <EditText
-                    android:id="@+id/soloGames"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="@string/soloGames"
-                    android:inputType="number" />
+                    <EditText
+                        android:id="@+id/soloKills"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number" />
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/soloWins"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="@string/soloWins"
-                    android:inputType="number" />
+                <LinearLayout android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView android:text="@string/soloGames"
+                        android:layout_margin="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <EditText android:layout_width="fill_parent"
+                        android:id="@+id/soloGames"
+                        android:inputType="number"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:layout_weight="1" />
 
-                <EditText
-                    android:id="@+id/duoKills"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="@string/duoKills"
-                    android:inputType="number" />
 
-                <EditText
-                    android:id="@+id/duoGames"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="@string/duoGames"
-                    android:inputType="number" />
 
-                <EditText
-                    android:id="@+id/duoWins"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="@string/duoWins"
-                    android:inputType="number" />
+                <LinearLayout android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView android:text="@string/soloWins"
+                        android:layout_margin="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <EditText android:layout_width="fill_parent"
+                        android:id="@+id/soloWins"
+                        android:inputType="number"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
 
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:layout_weight="1" />
 
-                <EditText
-                    android:id="@+id/squadKills"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="@string/squadKills"
-                    android:inputType="number" />
+                <LinearLayout android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView android:text="@string/duoKills"
+                        android:layout_margin="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <EditText android:layout_width="fill_parent"
+                        android:id="@+id/duoKills"
+                        android:inputType="number"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/squadGames"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="@string/squadGames"
-                    android:inputType="number" />
 
-                <EditText
-                    android:id="@+id/squadWins"
+
+                <LinearLayout android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView android:text="@string/duoGames"
+                        android:layout_margin="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <EditText android:layout_width="fill_parent"
+                        android:id="@+id/duoGames"
+                        android:inputType="number"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView android:text="@string/duoWins"
+                        android:layout_margin="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <EditText android:layout_width="fill_parent"
+                        android:id="@+id/duoWins"
+                        android:inputType="number"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <Space
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="@string/squadWins"
-                    android:inputType="number" />
+                    android:layout_height="20dp"
+                    android:layout_weight="1" />
+
+                <LinearLayout android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView android:text="@string/squadKills"
+                        android:layout_margin="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <EditText android:layout_width="fill_parent"
+                        android:id="@+id/squadKills"
+                        android:inputType="number"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+
+
+                <LinearLayout android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView android:text="@string/squadGames"
+                        android:layout_margin="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <EditText android:layout_width="fill_parent"
+                        android:id="@+id/squadGames"
+                        android:inputType="number"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView android:text="@string/squadWins"
+                        android:layout_margin="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <EditText android:layout_width="fill_parent"
+                        android:id="@+id/squadWins"
+                        android:inputType="number"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+
 
                 <Button
                     android:id="@+id/updateStatsButton"

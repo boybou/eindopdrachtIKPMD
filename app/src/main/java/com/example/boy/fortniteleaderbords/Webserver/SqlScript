@@ -8,5 +8,6 @@ CREATE TABLE users (
     duoWins INTEGER,
     squadKills INTEGER,
     squadGames INTEGER,
-    squadWins INTEGER
+    squadWins INTEGER,
+    date    TEXT
 );

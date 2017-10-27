@@ -1,8 +1,8 @@
 package com.example.boy.fortniteleaderbords.Fragments;
 
-import android.content.Context;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.example.boy.fortniteleaderbords.Database.DatabaseHelper;
 import com.example.boy.fortniteleaderbords.Database.DatabaseInfo;
-import com.example.boy.fortniteleaderbords.Models.CurrentUser;
+import com.example.boy.fortniteleaderbords.Models.StaticValues;
 import com.example.boy.fortniteleaderbords.Models.User;
 import com.example.boy.fortniteleaderbords.R;
 import com.github.mikephil.charting.animation.Easing;
@@ -37,7 +37,7 @@ public class StatBreakdownFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_stat_breakdown,container,false);
         DatabaseHelper dbHelper = DatabaseHelper.getHelper(container.getContext());
         TextView userName = (TextView) view.findViewById(R.id.userName);
-        userName.setText("Stats of: "+CurrentUser.getCurrentuserName());
+        userName.setText("Stats of: "+ StaticValues.getCurrentuserName());
         userName.setTextSize(20);
         userName.setTextColor(Color.BLACK);
 
@@ -67,17 +67,24 @@ public class StatBreakdownFragment extends Fragment {
         gamesPlayedPieChart.animateY(700, Easing.EasingOption.EaseInOutQuad);
         totalKillsPieCHart.animateY(700, Easing.EasingOption.EaseInOutQuad);
 
-        if(dbHelper.query(DatabaseInfo.userTableName,new String[]{DatabaseInfo.userTableCollumnNames.userName},DatabaseInfo.userTableCollumnNames.userName+"= '" +CurrentUser.getCurrentuserName()+"'",null,null,null,null).moveToFirst());
+        if(dbHelper.query(DatabaseInfo.userTableName,new String[]{"*"},DatabaseInfo.userTableCollumnNames.soloGames+" is null "+"AND "+DatabaseInfo.userTableCollumnNames.duoGames+" is null "+"AND "+DatabaseInfo.userTableCollumnNames.duoGames+" is null ",null,null,null,null).moveToFirst())
         {
-            User user = dbHelper.returnUser(CurrentUser.getCurrentuserName());
-                setAverageData(user.getSoloKills(),user.getSoloGames(),user.getDuoKills(),user.getDuoGames(),user.getsquadKills(),user.getsquadGames(), "Average Solo Kills", "Average Duo Kills", "Average squad Kills", averageKillsPieChart);
+            userName.setText("No stats entered, please update your stats first");
+            totalKillsPieCHart.setVisibility(View.INVISIBLE);
+            winPercentagePieChart.setVisibility(View.INVISIBLE);
+            averageKillsPieChart.setVisibility(View.INVISIBLE);
+            gamesPlayedPieChart.setVisibility(View.INVISIBLE);
+        }else{
+
+            User user = dbHelper.returnUser(StaticValues.getCurrentuserName());
+            setAverageData(user.getSoloKills(),user.getSoloGames(),user.getDuoKills(),user.getDuoGames(),user.getsquadKills(),user.getsquadGames(), "Average Solo Kills", "Average Duo Kills", "Average squad Kills", averageKillsPieChart);
             if((user.getDuoKills()+user.getSoloKills()+user.getsquadKills())!=0){
                 setData(user.getSoloKills(), user.getDuoKills(), user.getsquadKills(), "Solo Kills", "Duo Kills", "squad Kills", totalKillsPieCHart);
-        }
-                setData(user.getSoloGames(), user.getDuoGames(), user.getsquadGames(), "Solo Games", "Duo Games", "squad Games", gamesPlayedPieChart);
+            }
+            setData(user.getSoloGames(), user.getDuoGames(), user.getsquadGames(), "Solo Games", "Duo Games", "squad Games", gamesPlayedPieChart);
 
 
-                setPercentageData(user.getSoloWins(),user.getSoloGames(),user.getDuoWins(),user.getDuoGames(),user.getsquadWins(),user.getsquadGames(), "Solo Win Percentage", "Duo Win Percentage", "squad Win Percentage", winPercentagePieChart);
+            setPercentageData(user.getSoloWins(),user.getSoloGames(),user.getDuoWins(),user.getDuoGames(),user.getsquadWins(),user.getsquadGames(), "Solo Win Percentage", "Duo Win Percentage", "squad Win Percentage", winPercentagePieChart);
 
         }
 

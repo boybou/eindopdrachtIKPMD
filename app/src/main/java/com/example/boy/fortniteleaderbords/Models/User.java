@@ -15,6 +15,7 @@ public class User {
     private int squadKills;
     private int squadGames;
     private int squadWins;
+    private String updatedTime;
 
     public User(String userName){
         this.userName =userName;
@@ -30,6 +31,14 @@ public class User {
         this.squadGames=squadGames;
         this.squadKills=squadKills;
         this.squadWins=squadWins;
+    }
+
+    public String getUpdatedTime() {
+        return updatedTime;
+    }
+
+    public void setUpdatedTime(String updatedTime) {
+        this.updatedTime = updatedTime;
     }
 
     public String getUserName() {
